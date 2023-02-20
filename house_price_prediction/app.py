@@ -31,4 +31,5 @@ if __name__ == "__main__":
     if st.button("Predict Price"):
         final_input = [[area, bedrooms, bathrooms, stories, main_road, guestroom, basement, hot_water, ac, parking, prefarea, furnished_status]]
         prediction = model.predict(final_input)
+        prediction = round(prediction[0], 2)
         st.write(f'The house you are looking for would cost around ₹{prediction[0]}')
