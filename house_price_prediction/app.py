@@ -1,7 +1,7 @@
 import streamlit as st
 import pickle
 
-model = pickle.load(open('trained_model.pkl', 'rb'))
+model = pickle.load(open('house_price_prediction/trained_model.pkl', 'rb'))
 
 def option_to_num(value):
     if value == 'Yes' or value == 'Semi-Furnished':
