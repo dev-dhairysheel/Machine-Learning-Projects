@@ -14,7 +14,8 @@ def load_qa_pipeline() -> Pipeline:
 @st.cache
 def load_wiki_summary(query: str) -> str:
     results = wikipedia.search(query)
-    return results
+    summary = wikipedia.summary(results)
+    return summary
 
 def answer_question(pipeline: Pipeline, question: str, paragraph: str) -> dict:
     input = {
@@ -24,19 +25,30 @@ def answer_question(pipeline: Pipeline, question: str, paragraph: str) -> dict:
     output = pipeline(input)
     return output
 
+# Main app engine
 if __name__ == "__main__":
-    st.title("Topic Search")
+    # display title and description
+    st.title("Wikipedia Question Answering")
     st.write("Search topic, Ask questions, Get Answers")
 
+    # display topic input slot
     topic = st.text_input("SEARCH TOPIC", "")
 
+    # display question input slot
     question = st.text_input("QUESTION", "")
 
     if topic:
+        # load wikipedia summary of topic
         summary = load_wiki_summary(topic)
 
+        # perform question answering
         if question != "":
+            # load question answering pipeline
             qa_pipeline = load_qa_pipeline()
+
+            # answer query question using article summary
             result = answer_question(qa_pipeline, question, summary)
             answer = result["answer"]
+
+            # display answer
             st.write(answer)
