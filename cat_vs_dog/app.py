@@ -26,31 +26,27 @@ def predict_image(imagepath):
         if probability < 90:
             prediction = 'none'
 
+# Import the function to predict images from the previous code block
+from predict_image import predict_image
 
-st.set_page_config(page_title='Cats vs Dogs')
-# Create a title for your app
-st.title("Cat vs Dog Image Prediction App")
+# Set the title of the app
+st.title("Cat vs. Dog Classifier")
 
-# Create a file uploader widget
-uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "png", "jpeg"])
+# Create a file uploader widget in Streamlit
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
-# Check if a file is uploaded
+# If an image is uploaded
 if uploaded_file is not None:
+    # Display the image on the app
+    image = Image.open(uploaded_file)
+    st.image(image, caption='Uploaded Image.', use_column_width=True)
 
-    # Read and resize the uploaded image
-    img_array = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), 1)
-    img_array = cv2.resize(img_array, (224, 224))
+    # Make a prediction and display the result
+    prediction = predict_image(uploaded_file)
+    if prediction == 'dog':
+        st.write("I'm pretty sure that's a dog!")
+    elif prediction == 'cat':
+        st.write("I'm pretty sure that's a cat!")
+    else:
+        st.write("I'm not sure what that is...")
 
-    # Display the uploaded image
-    st.image(img_array, caption="Uploaded Image", use_column_width=True)
-
-    # Convert the file to an opencv image.
-    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
-    opencv_image = cv2.imdecode(file_bytes, 1)
-
-    # Predict the uploaded image using your function
-    prediction, probability = predict_image(image_path)
-
-    # Display the prediction and probability
-    st.write(f"Prediction: {prediction}")
-    st.write(f"Probability: {probability:.2f}%")
