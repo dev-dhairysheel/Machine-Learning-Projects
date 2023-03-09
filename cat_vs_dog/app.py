@@ -26,9 +26,6 @@ def predict_image(imagepath):
         if probability < 90:
             prediction = 'none'
 
-# Import the function to predict images from the previous code block
-from predict_image import predict_image
-
 # Set the title of the app
 st.title("Cat vs. Dog Classifier")
 
