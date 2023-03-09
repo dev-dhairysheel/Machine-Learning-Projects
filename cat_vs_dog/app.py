@@ -1,6 +1,7 @@
 import pickle
 import cv2
 import numpy as np
+from PIL import Image
 import streamlit as st
 
 model = pickle.load(open('cat_vs_dog/cats_vs_dogs.pkl', 'rb'))
