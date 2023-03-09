@@ -42,11 +42,11 @@ if uploaded_file is not None:
     img_array = cv2.resize(img_array, (224, 224))
 
     # Display the uploaded image
-    image_path = st.image(img_array, caption="Uploaded Image", use_column_width=True)
+    st.image(img_array, caption="Uploaded Image", use_column_width=True)
 
-    # Save the uploaded image as a temporary file
-    with open("temp.jpg", "wb") as f:
-        f.write(uploaded_file.getbuffer())
+    # Convert the file to an opencv image.
+    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
+    opencv_image = cv2.imdecode(file_bytes, 1)
 
     # Predict the uploaded image using your function
     prediction, probability = predict_image(image_path)
