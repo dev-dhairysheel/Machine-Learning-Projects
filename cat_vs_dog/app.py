@@ -42,14 +42,14 @@ if uploaded_file is not None:
     img_array = cv2.resize(img_array, (224, 224))
 
     # Display the uploaded image
-    st.image(img_array, caption="Uploaded Image", use_column_width=True)
+    image_path = st.image(img_array, caption="Uploaded Image", use_column_width=True)
 
     # Save the uploaded image as a temporary file
     with open("temp.jpg", "wb") as f:
         f.write(uploaded_file.getbuffer())
 
     # Predict the uploaded image using your function
-    prediction, probability = predict_image("temp.jpg")
+    prediction, probability = predict_image(image_path)
 
     # Display the prediction and probability
     st.write(f"Prediction: {prediction}")
