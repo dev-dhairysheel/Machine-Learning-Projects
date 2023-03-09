@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import streamlit as st
 
-model = pickle.load(open('cat_vs_dog/cats_vs_dogs.pkl', 'rb'))
+model = pickle.load(open('cats_vs_dogs.pkl', 'rb'))
 
 #to predict new images 
 def predict_image(imagepath):
@@ -28,7 +28,29 @@ def predict_image(imagepath):
 
 
 st.set_page_config(page_title='Cats vs Dogs')
-upload_img = st.file_uploader('Please choose an image', type=['png', 'jpg', 'jpeg'], accept_multiple_files=False)
-st.image(upload_img)
-predict_image(upload_img)
-st.write(f'It is is {prediction}')
+# Create a title for your app
+st.title("Cat vs Dog Image Prediction App")
+
+# Create a file uploader widget
+uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "png", "gif"])
+
+# Check if a file is uploaded
+if uploaded_file is not None:
+
+    # Read and resize the uploaded image
+    img_array = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), 1)
+    img_array = cv2.resize(img_array, (224, 224))
+
+    # Display the uploaded image
+    st.image(img_array, caption="Uploaded Image", use_column_width=True)
+
+    # Save the uploaded image as a temporary file
+    with open("temp.jpg", "wb") as f:
+        f.write(uploaded_file.getbuffer())
+
+    # Predict the uploaded image using your function
+    prediction, probability = predict_image("temp.jpg")
+
+    # Display the prediction and probability
+    st.write(f"Prediction: {prediction}")
+    st.write(f"Probability: {probability:.2f}%")
