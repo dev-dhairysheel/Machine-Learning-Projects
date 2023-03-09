@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import streamlit as st
 
-model = pickle.load(open('cats_vs_dogs.pkl', 'rb'))
+model = pickle.load(open('cat_vs_dog/cats_vs_dogs.pkl', 'rb'))
 
 #to predict new images 
 def predict_image(imagepath):
