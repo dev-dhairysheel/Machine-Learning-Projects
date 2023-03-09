@@ -28,7 +28,7 @@ def predict_image(imagepath):
 
 
 st.set_page_config(page_title='Cats vs Dogs')
-upload_img = st.file_uploader('Please choose an image', type=['png', 'jpg', 'jped'], accept_multiple_files=False)
+upload_img = st.file_uploader('Please choose an image', type=['png', 'jpg', 'jpeg'], accept_multiple_files=False)
 st.image(upload_img)
 predict_image(upload_img)
 st.write(f'It is is {prediction}')
