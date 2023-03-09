@@ -32,7 +32,7 @@ st.set_page_config(page_title='Cats vs Dogs')
 st.title("Cat vs Dog Image Prediction App")
 
 # Create a file uploader widget
-uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "png", "jped"])
+uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "png", "jpeg"])
 
 # Check if a file is uploaded
 if uploaded_file is not None:
