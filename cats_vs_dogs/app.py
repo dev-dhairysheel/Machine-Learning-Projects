@@ -61,7 +61,7 @@ if uploaded_file is not None:
 
         # Display the prediction and probability
         if prediction == "none":
-            st.markdown("**Unable to make a prediction**: We apologize, but our system was unable to accurately predict the contents of the uploaded image. Please try again with a different image.")
+            st.markdown("**Unable to make a prediction**: Our model has detected no cats or dogs in the uploaded image. Please try again with a different image if you are looking for cats or dogs.")
         else:
             st.markdown(f"**Prediction result:** Our algorithm has determined that this image contains a **{prediction}** with **{probability:.2f}%** confidence.")
 
